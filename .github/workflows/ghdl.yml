@@ -1,0 +1,29 @@
+name: 'ghdl'
+
+on:
+    push:
+    pull_request:
+    schedule:
+      - cron: '0 15 * * *'
+
+env:
+  CI: true
+
+jobs:
+
+  lin:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_BUILDKIT: 1
+    steps:
+    - uses: actions/checkout@v2
+    - name: Generate waveforms
+      run: |
+        cd ghdl/resolution
+        for img in buster-mcode buster-llvm-7; do
+          docker pull ghdl/ghdl:"$img"
+          docker run --rm -tv $(pwd):/src -e CI ghdl/ghdl:"$img" /src/run.sh
+        done
+
+        cd ../hierarchy
+        docker run --rm -tv $(pwd):/src -e CI ghdl/ghdl:buster-mcode /src/run.sh
