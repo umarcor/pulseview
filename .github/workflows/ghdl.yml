@@ -16,6 +16,7 @@ jobs:
     env:
       DOCKER_BUILDKIT: 1
     steps:
+
     - uses: actions/checkout@v2
     - name: Generate waveforms
       run: |
@@ -27,3 +28,13 @@ jobs:
 
         cd ../hierarchy
         docker run --rm -tv $(pwd):/src -e CI ghdl/ghdl:buster-mcode /src/run.sh
+
+    - name: Build docker image with libsigork and sigrok-cli
+      run: |
+        cd ghdl
+        docker build -t umarcor/sigrok .
+
+    - name: Run sigrok-cli
+      run: |
+        cd ghdl
+        docker run --rm -tv $(pwd):/src -e CI umarcor/sigrok /src/test.sh
