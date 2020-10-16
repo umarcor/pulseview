@@ -143,3 +143,4 @@ Other FOSS alternatives exist for visualization of HDL simulation waveforms, but
 - [wavedrom.com](https://wavedrom.com/), [wavedrom/vcd](https://github.com/wavedrom/vcd) and [zoom](https://github.com/wavedrom/zoom)
 - [Nic30/d3-wave](https://github.com/Nic30/d3-wave)
 - LaTeX's [tikz-timing](https://www.ctan.org/pkg/tikz-timing)?
+- [raczben/fliplot](https://github.com/raczben/fliplot)
